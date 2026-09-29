@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Data Analyst · Beautiful Theme</title>
+
+  <!-- Font Awesome icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Our custom stylesheet (served from /static/style.css) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <!-- Layered animated background -->
+  <div class="background-aura"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="app-wrapper">
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="logo">
+        <i class="fas fa-chart-pie"></i>
+        <span>AI Data Analyst</span>
+      </div>
+      <div class="header-actions">
+        <div class="badge">
+          <i class="fas fa-bolt"></i> Ready to analyze
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN PANEL -->
+    <main class="main-panel">
+      <!-- Upload dropzone -->
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">
+          <i class="fas fa-cloud-upload-alt"></i>
+        </div>
+        <h3>Drop your dataset here</h3>
+        <p>CSV, Excel, or JSON — max 50&nbsp;MB. Our AI will instantly profile, clean, and visualize.</p>
+        <button class="upload-btn" id="uploadBtn" type="button">
+          <i class="fas fa-folder-open"></i> Browse files
+        </button>
+        <input
+          type="file"
+          id="fileInput"
+          accept=".csv,.xlsx,.xls,.json"
+          style="display: none"
+        />
+      </div>
+
+      <!-- Recent files -->
+      <div class="recent-section">
+        <div class="section-label">
+          <i class="fas fa-clock"></i> Recent analyses
+        </div>
+        <div class="file-list" id="fileList">
+          {% if files %}
+            {% for f in files %}
+              <div class="file-card">
+                <div class="file-icon">
+                  {% if f.ext == 'csv' %}
+                    <i class="fas fa-file-csv"></i>
+                  {% elif f.ext in ['xlsx', 'xls'] %}
+                    <i class="fas fa-file-excel"></i>
+                  {% elif f.ext == 'json' %}
+                    <i class="fas fa-file-code"></i>
+                  {% else %}
+                    <i class="fas fa-file"></i>
+                  {% endif %}
+                </div>
+                <div class="file-info">
+                  <h4>{{ f.name }}</h4>
+                  <span>{{ f.size }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="file-card empty">
+              <div class="file-icon"><i class="fas fa-inbox"></i></div>
+              <div class="file-info">
+                <h4>No files yet</h4>
+                <span>Upload your first dataset above</span>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+      <span><i class="fas fa-shield-alt"></i> End-to-end encrypted</span>
+      <span class="separator"></span>
+      <span><i class="fas fa-robot"></i> AI-powered insights</span>
+      <span class="separator"></span>
+      <span><i class="fas fa-infinity"></i> Unlimited queries</span>
+    </footer>
+  </div>
+
+  <!-- Our custom script (served from /static/script.js) -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
